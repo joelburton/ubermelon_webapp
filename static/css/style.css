@@ -71,5 +71,17 @@ div.cart {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
 img.melon-cart {
+    height: 15px;
+}
+
+div#promotion {
+    position: fixed;
+    margin-top: 50px;
+    width: 600px;
+    right: 50%;
+    margin-right: -300px;
+    top: 50px;
+    border: 3px solid #ccc;
 }

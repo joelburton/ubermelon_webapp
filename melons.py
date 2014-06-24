@@ -24,7 +24,6 @@ def show_melon(id):
     """This page shows the details of a given melon, as well as giving an
     option to buy the melon."""
     melon = model.get_melon_by_id(id)
-    print melon
     return render_template("melon_details.html",
                   display_melon = melon)
 
@@ -33,7 +32,9 @@ def shopping_cart():
     """TODO: Display the contents of the shopping cart. The shopping cart is a
     list held in the session that contains all the melons to be added. Check
     accompanying screenshots for details."""
-    return render_template("cart.html")
+    melons = [ (model.get_melon_by_id(int(id)), count) for id, count in session.setdefault("cart", {}).items() ]
+    total = sum([melon[0].price * melon[1] for melon in melons])
+    return render_template("cart.html", melons = melons, total=total)
     
 @app.route("/add_to_cart/<int:id>")
 def add_to_cart(id):
@@ -44,7 +45,12 @@ def add_to_cart(id):
     shopping cart page, while displaying the message
     "Successfully added to cart" """
 
-    return "Oops! This needs to be implemented!"
+    id_str = str(id)
+    cart = session.setdefault("cart", {})
+    cart[id_str] = cart.get(id_str, 0) + 1
+
+    flash("Successfully added to cart")
+    return redirect("/melon/%d"%id)
 
 
 @app.route("/login", methods=["GET"])
