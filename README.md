@@ -1,6 +1,6 @@
 Jaaaaaaaaaaaavascript!
 ======================
-Now that our ubermelon app _works_, we're going to add just a little bit of polish by improving some interactions with javascript and jQuery. We're going to add three dynamic interactions to the ubermelon site:
+Now that our ubermelon app _works_, we're going to add just a little bit of polish by improving some interactions with javascript and jQuery. We're going to add two dynamic interactions to the ubermelon site:
 
 1. An annoying promotion popup screen
 2. A shopping cart summary popup that updates with information from the server. 
@@ -58,8 +58,8 @@ An attribute can be any part of the tag, including the text contents, the css cl
 So to hide the blackout screen, we first need a reference to it. After that, we can turn it invisible with one of our
 css styles. If we were using raw javascript, it would look something like this:
 
-  var blackout = document.querySelector("div#blackout-screen"); // Use css selectors to get a reference to the screen div
-  blackout.style.visibility = "hidden"; // Hiding the screen also hides its contents
+    var blackout = document.querySelector("div#blackout-screen"); // Use css selectors to get a reference to the screen div
+    blackout.style.visibility = "hidden"; // Hiding the screen also hides its contents
   
 It's not too bad, but it's verbose. Instead, we're going to use jQuery shortcuts to do those two actions. We'll use the [jQuery selector](http://api.jquery.com/id-selector/) and the [jQuery .hide() method](http://api.jquery.com/hide/) to do those two things.
 
@@ -88,3 +88,36 @@ Javascript, specifically jQuery, has a weird shorthand for making it happen. Don
     $(main);
   
 Now _bask_ in the glory of your first javascript interaction.
+
+Task 2: Shopping cart popup (Ajax)
+----------------------------------
+
+
+Task 3: Dynamically updating your cart (Extra Credit)
+-----------------------------------------------------
+![Summer sale](screens/cart1.png)
+
+This is extra credit, of _course_ you don't get too many hints. This version of the cart detail page has you dynamically updating the quantity of the melons in the cart. Notice the red and green +/- buttons in the screenshot. You'll use these to increase or decrease the number of items in the cart.
+
+###The HTML
+The HTML isn't too bad, the +/- buttons are just links, with the following styles applied: `btn btn-primary btn-xs` and `btn btn-danger btn-xs`. To make the javascript easier, you should wrap the quantity in a span (and give it a meaningful name), then wrap the span and both buttons in a single div.
+
+We'll also do something we haven't done before, which is add _auxilliary_ data to the `span`. It will be useful, in looking at the span containing a melon quantity, to know what melon that quantity refers to. We can add extra attributes onto an HTML element with no ill effect:
+
+    <span id="melon-qty-14" data-melon-id="14">32</span>
+    
+Later, when you are trying to report back to the server the change in quantity, you can just get the melon id directly off the `span` element.
+
+###The Javascript
+The javascript isn't too much different from before, we need an 'increase' and a 'decrease' function, then we need to install it on each of the buttons. There is one subtlety, there are multiple + and - buttons on the page, and each one affects a different quantity span.
+
+Here's where our clever HTML layout makes things easier. jQuery has a mechanism, [.siblings()](http://api.jquery.com/siblings/), for choosing elements _adjacent_ to the one you have a reference to. This lets us easily select the quantity span from the increase or decrease handlers. It looks something like this:
+
+    function increase() {
+        target = $(this).siblings("span");  // Find the span _next_ to button that was clicked
+        target.text("500");                 // Set that span's text to 500.
+    }
+    
+Installing the event handlers is actually no different from before. If a selector query returns _multiple_ elements, using `.click()` will install a click handler on all the elements that were returned.
+
+    $("a.increase-btn").click(increase);    // Install the 'increase' handler on_all_ plus buttons
