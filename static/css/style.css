@@ -76,22 +76,3 @@ img.melon-cart {
     height: 15px;
 }
 
-div#promotion {
-    position: fixed;
-    margin-top: 50px;
-    width: 600px;
-    right: 50%;
-    margin-right: -300px;
-    top: 50px;
-    border: 3px solid #ccc;
-}
-
-div#blackout-screen {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0px;
-    background-color: rgba(64, 64, 64, 0.5);
-    left: 0px;
-
-}
