@@ -128,13 +128,36 @@ Add a link after your `cart-target` with the text Close, give it an id of `cart-
 ###The Javascript: Part 1
 The javascript portion will be done in two parts. We'll write the interaction assuming that the contents of the cart summary div are static: ie, there is no AJAX call being made. This is almost exactly like the javascript in the first task, except we're showing an element instead of hiding it, and we're responding to the mouse rolling over an element instead of a click.
 
-1.  Write a function called `showCartSummary()` that makes the cart div visible. Use jQuery's [.show()](http://api.jquery.com/show/) method.
+1.  Write a function called `showCartSummary()` that makes the cart div visible. Use jQuery's [.show()](http://api.jquery.com/show/) method on the `div#cart`.
 2.  In your `main()` function, make the cart summary show in response to a [.mouseover()](http://api.jquery.com/mouseover/) of the `My Melon Cart` link in the navbar. You may have to add an id to the link to be able to do this.
 3.  Write a function called `hideCartSummary()` that makes the cart invisible. Use the `.hide()` method as in our first task.
 4.  In `main()`, make hideCartSummary trigger in response to clicking on your `cart-close` link.
 
-###The Javascript
+###The Partial
+Our AJAX call will be used to fill in the `cart-target` div with content from the server. For that, we need a url on the server to produce that content. For now, we can continue using static content.
 
+![Summer sale](screens/cart_summary2.png)
+
+The HTML that we're going to generate on the server side is not a full HTML page, it's only going to contain a small chunk of HTML that's going to be injected into a larger page. We'll call this incomplete chunk a 'partial'.
+
+1.  Create a new route, `@app.route('/cart_items')` that renders a template called `_cart_items.html`. The leading underscore indicates it is a partial. There is no technical distinction from a regular page, it's just for us to be able to identify the difference.
+2.  Move the placeholder items from your `cart-target` div into the `_cart_items.html` partial. Make sure the `cart-target` div is now empty.
+
+###Javascript 2: The Revenge
+Our existing javascript still works, but the cart is now empty. It's no longer sufficient to simply display the cart div, we need to populate it as well. We'll use jQuery's [.get()](http://api.jquery.com/jQuery.get/) method, which is shorthand notation for the [.ajax()](http://api.jquery.com/jQuery.ajax/) method (which itself is shorthand for the `XMLHttpRequest()` mechanism). 
+
+Instead of showing the cart in response to the mouseover, we need to ask the server for the cart items. Once the server sends the browser the new cart items, we populate and show the cart in response to the new data. Mechanically, it's not very different from saying 'call this function when a user clicks this element'. Instead, we are saying, 'call this function when the server gives us data from this address'.
+
+As with almost everything in javascript, the technique is two parts.
+
+1.  Ask the server for new data. Write a new function called `getCartContents()`. Update your mouseover event in `main` to call this function instead of `showCartSummary()`. This function will initiate a jQuery `.get()` call to ask the server for data from the `/cart_items` url. In response to that, it should call the `showCartSummary()` function. 
+2. Update `showCartSummary()` to accept a single argument named `data`. When the AJAX call is made, this argument will contain the contents of the HTML partial. Use the jQuery[.html()](http://api.jquery.com/html/) method to inject this data into the `div#cart-target` before showing the cart.
+
+###Partial 2: The Revenge
+The partial is filled with static information. Update the `/cart_items` route to generate the HTML partial from the session. You can use the code from the `/cart` route to extract the melons and their quantities from the session.
+
+###The Cleanup
+The cart summary only works on the melon list page. To work on all pages, the javascript and HTML structures need to be moved to the base template. Do that now so it works everywhere.
 
 Task 3: Dynamically updating your cart (Extra Credit)
 -----------------------------------------------------
