@@ -91,7 +91,29 @@ Now _bask_ in the glory of your first javascript interaction.
 
 Task 2: Shopping cart popup (Ajax)
 ----------------------------------
+![Summer sale](screens/cart_summary1.png)
+We're going to add a small cart summary that shows when you hover over the melon cart in the navbar. This cart summary will be powered by ajax to _always_ reflect what is in the cart at any given time. If you have the site open in two different windows and add melons to the cart in one window, the other window will correctly show the cart summary on mouseover.
 
+We'll do all of our work on the `melon_details.html` page because it's easier, but because the summary shows on every page, we'll move it to the base template when we've got it working.
+
+###The HTML
+The HTML here is much more straightforward than before, we simply need a div with the id `cart` styled roughly as follows:
+
+* 200 pixels wide
+* 1 pixel border, #ccc in color
+* 10 pixels of padding
+* 10 pixel border radius (for those nice rounded corners)
+* absolute positioning, 50 pixels from the top, 75 pixels from the right
+* background color of #f3f3f3
+
+Inside the cart div, we will have another div for each element in the cart. Each of those divs will have a link with the name of the melon for text, and a `<p>` tag containing the quantity. It will look something like this:
+
+    <div>
+        <a href="">Super Melon</a>
+        <p>Qty: 5</p>
+    </div>
+
+Make two or three placeholder cart items to make sure you have your styling right.
 
 Task 3: Dynamically updating your cart (Extra Credit)
 -----------------------------------------------------
