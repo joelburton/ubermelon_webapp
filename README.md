@@ -68,23 +68,23 @@ It's not too bad, but it's verbose. Instead, we're going to use jQuery shortcuts
 ####The 'event listener'
 Now that we have an action to be performed, we just need to write some javascript to say 'call this action when a user clicks on this element'. To do this, we will install a [click event listener](http://api.jquery.com/click/). Event listeners are installed _onto_ page elements, in fact, it is just changing an attribute. Here is what it would look like in raw javascript:
 
-  var closeLink = document.querySelector("a#close-promotion");
-  closeLink.onclick = hideBlackoutScreen;
+    var closeLink = document.querySelector("a#close-promotion");
+    closeLink.onclick = hideBlackoutScreen;
   
 Naturally we won't be using raw javascript because it's tedious. We'll use the jQuery version of things.
 
 We could theoretically install the event listeners at any time, but it makes sense to install them when the page loads. Like in python, we have an idea analogous to the `main` function, a function that executes before anything else, once the page has declared itself to be ready.
 
-** In your javascript tag, write a function named `main` that installs a click event listener on the 'Close promotion' link.**
+**In your javascript tag, write a function named `main` that installs a click event listener on the 'Close promotion' link.**
 
 ####Details
 The main function needs to be called on page load. In python, we use the following construct to make it happen:
 
-  if __name__ == "__main__":
-    main()
+    if __name__ == "__main__":
+        main()
 
 Javascript, specifically jQuery, has a weird shorthand for making it happen. Don't question too much, just type this:
 
-  $(main);
+    $(main);
   
-
+Now _bask_ in the glory of your first javascript interaction.
