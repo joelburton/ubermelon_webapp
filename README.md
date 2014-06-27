@@ -96,6 +96,10 @@ We're going to add a small cart summary that shows when you hover over the melon
 
 We'll do all of our work on the `melon_details.html` page because it's easier, but because the summary shows on every page, we'll move it to the base template when we've got it working.
 
+In general, if our javascript techniques are used to change the display in response to some interaction, then AJAX is changing the display in response to the server sending more data to the browser. The only question is, how do we induce the server to send more data?
+
+When building an AJAX interaction, it is best to approach the problem as before: build the HTML _without_ any javascript at first.
+
 ###The HTML
 The HTML here is much more straightforward than before, we simply need a div with the id `cart` styled roughly as follows:
 
@@ -106,14 +110,31 @@ The HTML here is much more straightforward than before, we simply need a div wit
 * absolute positioning, 50 pixels from the top, 75 pixels from the right
 * background color of #f3f3f3
 
-Inside the cart div, we will have another div for each element in the cart. Each of those divs will have a link with the name of the melon for text, and a `<p>` tag containing the quantity. It will look something like this:
+We'll also need another div inside, called the `cart-target`. This is where all the cart items will go. We keep it separate so that it's easy for the javascript to just change the contents of this div in response to new data from the server.
+
+Inside the cart target are placeholder divs that represent melons in the cart. Simply make a link and a `<p>` tag with the quantity in it:
 
     <div>
         <a href="">Super Melon</a>
         <p>Qty: 5</p>
     </div>
 
-Make two or three placeholder cart items to make sure you have your styling right.
+Make two or three placeholder cart items to make sure you have your styling right and it matches the screenshot.
+
+Add a link after your `cart-target` with the text Close, give it an id of `cart-close`. Optionally add the css class `btn btn-xs btn-default` to make it look like a button.
+
+**When you're done, add a `display: none` attribute to the css to hide the cart summary.**
+
+###The Javascript: Part 1
+The javascript portion will be done in two parts. We'll write the interaction assuming that the contents of the cart summary div are static: ie, there is no AJAX call being made. This is almost exactly like the javascript in the first task, except we're showing an element instead of hiding it, and we're responding to the mouse rolling over an element instead of a click.
+
+1.  Write a function called `showCartSummary()` that makes the cart div visible. Use jQuery's [.show()](http://api.jquery.com/show/) method.
+2.  In your `main()` function, make the cart summary show in response to a [.mouseover()](http://api.jquery.com/mouseover/) of the `My Melon Cart` link in the navbar. You may have to add an id to the link to be able to do this.
+3.  Write a function called `hideCartSummary()` that makes the cart invisible. Use the `.hide()` method as in our first task.
+4.  In `main()`, make hideCartSummary trigger in response to clicking on your `cart-close` link.
+
+###The Javascript
+
 
 Task 3: Dynamically updating your cart (Extra Credit)
 -----------------------------------------------------
