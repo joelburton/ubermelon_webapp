@@ -133,8 +133,24 @@ The javascript portion will be done in two parts. We'll write the interaction as
 3.  Write a function called `hideCartSummary()` that makes the cart invisible. Use the `.hide()` method as in our first task.
 4.  In `main()`, make hideCartSummary trigger in response to clicking on your `cart-close` link.
 
-###The Javascript
+###The Partial
+Our AJAX call will be used to fill in the `cart-target` div with content from the server. For that, we need a url on the server to produce that content. For now, we can continue using static content.
 
+![Summer sale](screens/cart_summary2.png)
+
+The HTML that we're going to generate on the server side is not a full HTML page, it's only going to contain a small chunk of HTML that's going to be injected into a larger page. We'll call this incomplete chunk a 'partial'.
+
+1.  Create a new route, `@app.route('/cart_items')` that renders a template called `_cart_items.html`. The leading underscore indicates it is a partial. There is no technical distinction from a regular page, it's just for us to be able to identify the difference.
+2.  Move the placeholder items from your `cart-target` div into the `_cart_items.html` partial. Make sure the `cart-target` div is now empty.
+
+###Javascript 2: The Revenge
+
+
+###Partial 2: The Revenge
+The partial is filled with static information. Update the `/cart_items` route to generate the HTML partial from the session. You can use the code from the `/cart` route to extract the melons and their quantities from the session.
+
+###The Cleanup
+The cart summary only works on the melon list page. To work on all pages, the javascript and HTML structures need to be moved to the base template. Do that now so it works everywhere.
 
 Task 3: Dynamically updating your cart (Extra Credit)
 -----------------------------------------------------
