@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 import os
 
 
-DB_URL = os.environ.get("DATABASE", "sqlite:///melons.db")
+DB_URL = os.environ.get("DATABASE_URL", "sqlite:///melons.db")
 
 engine = create_engine(DB_URL)
 Session = sessionmaker(bind=engine)
