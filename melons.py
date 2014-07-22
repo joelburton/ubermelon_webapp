@@ -1,6 +1,8 @@
 from flask import Flask, request, session, render_template, g, redirect, url_for, flash
 import model
+from model import session as db, Melon
 import jinja2
+import os
 
 
 app = Flask(__name__)
@@ -15,7 +17,7 @@ def index():
 @app.route("/melons")
 def list_melons():
     """This is the big page showing all the melons ubermelon has to offer"""
-    melons = model.get_melons()
+    melons = db.query(Melon).filter(Melon.imgurl != "").limit(30).all()
     return render_template("all_melons.html",
                            melon_list = melons)
 
@@ -23,7 +25,7 @@ def list_melons():
 def show_melon(id):
     """This page shows the details of a given melon, as well as giving an
     option to buy the melon."""
-    melon = model.get_melon_by_id(id)
+    melon = db.query(Melon).get(id)
     return render_template("melon_details.html",
                   display_melon = melon)
 
@@ -32,7 +34,7 @@ def shopping_cart():
     """TODO: Display the contents of the shopping cart. The shopping cart is a
     list held in the session that contains all the melons to be added. Check
     accompanying screenshots for details."""
-    melons = [ (model.get_melon_by_id(int(id)), count) for id, count in session.setdefault("cart", {}).items() ]
+    melons = [ (db.query(Melon).get(int(id)), count) for id, count in session.setdefault("cart", {}).items() ]
     total = sum([melon[0].price * melon[1] for melon in melons])
     return render_template("cart.html", melons = melons, total=total)
     
@@ -73,4 +75,5 @@ def checkout():
     return redirect("/melons")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=True, port=port)
