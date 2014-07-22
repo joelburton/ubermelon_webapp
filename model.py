@@ -3,12 +3,8 @@ import sqlalchemy
 from sqlalchemy import create_engine, Column, Integer, String, Float, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-import os
 
-
-DB_URL = os.environ.get("DATABASE_URL", "sqlite:///melons.db")
-
-engine = create_engine(DB_URL)
+engine = create_engine("sqlite:///melons.db")
 Session = sessionmaker(bind=engine)
 session = Session()
 Base = declarative_base()

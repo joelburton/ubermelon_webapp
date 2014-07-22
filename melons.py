@@ -2,8 +2,6 @@ from flask import Flask, request, session, render_template, g, redirect, url_for
 import model
 from model import session as db, Melon
 import jinja2
-import os
-
 
 app = Flask(__name__)
 app.secret_key = '\xf5!\x07!qj\xa4\x08\xc6\xf8\n\x8a\x95m\xe2\x04g\xbb\x98|U\xa2f\x03'
@@ -75,5 +73,4 @@ def checkout():
     return redirect("/melons")
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(debug=True, port=port, host="0.0.0.0")
+    app.run(debug=True)
