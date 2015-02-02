@@ -44,12 +44,12 @@ As you do this, watch out for a number of specific things.
 Try to make sure you understand the source of all the variables that are being used in the .html templates. Whenever you see a `{{ var }}` in a template, make sure that you can match the variable listed with one coming from your model.
 
 ### The Melon Detail Template
-You'll notice that the melon detail page uses an `{% if %}` statement to display whether or not a given melon is seedless. This is a feature of the Jinja templating engine. In addition to giving us a mechanism for inserting placeholders into our HTML, it also gives us a few control structures, like if-statements and for-loops. We can use this to make the contents of our page a little more dynamic.
+You'll notice that the melon detail page uses an `{% if %}` statement to display whether or not a given melon is seedless. Remember this syntax from our earlier Jinja lesson. In addition to giving us a mechanism for inserting placeholders into our HTML, it also gives us a few control structures, like if-statements and for-loops. We can use this to make the contents of our page a little more dynamic.
 
 [Jinja if-statement documentation](http://jinja.pocoo.org/docs/templates/#if)
 
 ### The Melon List Template
-The template for our melon list has an example of a Jinja `{% for %}` loop.
+The template for our melon list has an example of a Jinja `{% for %}` loop as well.
 
 [Jinja for-loop documentation](http://jinja.pocoo.org/docs/templates/#for)
 
@@ -101,7 +101,7 @@ The melon cart link at the top of the page has a broken image. If you browse aro
 
 Task 4: The Melon Cart Functionality
 ------------------------------------
-When you view the shopping cart, you'll notice that all the items in it are placeholder dummy items. We'll need to replace these items with actual melons. In addition, the 'Add to Cart' button on the melon detail page is wired up but the controller currently' doesn't do anything.
+When you view the shopping cart, you'll notice that all the items in it are placeholder dummy items. We'll need to replace these items with actual melons. In addition, the 'Add to Cart' button on the melon detail page is wired up but the controller currently doesn't do anything.
 
 We need a way to temporarily hold information that the user generates (ie: which melons are in the cart). We could commit this to the database, but it would be cumbersome. Instead, we'll use a storage mechanism called 'the session' to carry information from clicking the 'Add to Cart' button all the way to the shopping cart page.
 
@@ -143,7 +143,7 @@ And so on.
 
 Extra Credit: Log In
 --------------------
-We'll implement a very simple login feature (that doesn't do anything) using all the same mechanisms we've seen until now. Exactly 'which user is logged in right now' is a good candidate for being stored in the session, as it's very browser-specific information. The general procedure is as follows
+We'll implement a very simple login feature (that doesn't do anything) using all the same mechanisms we've seen until now. Exactly 'which user is logged in right now' is a good candidate for being stored in the session, as it's very browser-specific information. The general procedure is as follows:
 
 1. When the user submits the login form, the email address and password get sent to the `process_login` controller.
 2. From the `process_login` controller, we can extract the form fields from the [request object](http://flask.pocoo.org/docs/quickstart/#the-request-object).
