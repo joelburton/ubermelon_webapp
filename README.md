@@ -103,9 +103,9 @@ Task 4: The Melon Cart Functionality
 ------------------------------------
 When you view the shopping cart, you'll notice that all the items in it are placeholder dummy items. We'll need to replace these items with actual melons. In addition, the 'Add to Cart' button on the melon detail page is wired up but the controller currently doesn't do anything.
 
-We need a way to temporarily hold information that the user generates (ie: which melons are in the cart). We could commit this to the database, but this isn't long-term information, nor is it information that's attached to any particular user. It's short-term information that's attached to the browser you're currently using. This kind of information is best stored in a storage mechanism called 'the session'. We will use a Flask session to carry information from clicking the 'Add to Cart' button all the way to the shopping cart page.
+We need a way to temporarily hold information that the user generates (ie: which melons are in the cart). We could commit this to the database, but this isn't long-term information, nor is it information that's attached to any particular user. It's short-term information that's attached to the browser you're currently using. This kind of information is best stored in a storage mechanism called 'the session'. We will use the session to carry information from clicking the 'Add to Cart' button all the way to the shopping cart page.
 
-Read the [Session documentation](http://flask.pocoo.org/docs/quickstart/#sessions) to figure out how to import a Flask session and use it (hint: look for where we define a `secret key`, and once everything is set up, try to put something in the session and then see if it worked).
+Read the [Session documentation](http://flask.pocoo.org/docs/quickstart/#sessions) to figure out how to import `session` from Flask and use it (hint: look for where we define a `secret key`, and once everything is set up, try to put something in the session and then print it out).
 
 ###Implementing a Cart Feature using the Session
 This feature is two-part. The order in which you build the feature doesn't matter, but it may be helpful to write both in conjunction.
